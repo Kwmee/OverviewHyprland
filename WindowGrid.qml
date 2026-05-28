@@ -1,11 +1,9 @@
 import Quickshell
 import Quickshell.Hyprland
-import Quickshell.Io
 import QtQuick
 
 Item {
     id: root
-
     required property var screen
 
     readonly property var allWindows: {
@@ -28,11 +26,11 @@ Item {
         return 4
     }
     readonly property int rows: Math.ceil(allWindows.length / cols)
-
-    // Tamaño de celda con máximo para que ventanas solas no llenen la pantalla
-    readonly property real cellW: Math.min(cols > 0 ? (width / cols) : width, 820)
-    // Altura basada en ratio 16:9 para que el fit sea exacto en monitores estándar
-    readonly property real cellH: Math.min(cellW * (9/16) + 28, rows > 0 ? (height / rows) : height)
+    readonly property real cellW: cols > 0 ? (width / cols) : width
+    readonly property real cellH: Math.min(
+        cellW * (9 / 16) + 28,
+        rows > 0 ? (height / rows) : height
+    )
 
     Text {
         anchors.centerIn: parent
@@ -53,9 +51,9 @@ Item {
 
             WindowPreview {
                 required property var modelData
+                window: modelData
                 width: root.cellW
                 height: root.cellH
-                window: modelData
 
                 onClicked: {
                     modelData.wayland?.activate()

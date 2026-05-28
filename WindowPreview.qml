@@ -17,6 +17,11 @@ Item {
         NumberAnimation { duration: 160; easing.type: Easing.OutBack; easing.overshoot: 1.08 }
     }
 
+    // Ratio real de la ventana capturada (por defecto 16:9 hasta el primer frame)
+    readonly property real naturalRatio: liveView.sourceSize.width > 0
+        ? liveView.sourceSize.width / liveView.sourceSize.height
+        : 16 / 9
+
     ClippingRectangle {
         anchors.fill: parent
         anchors.margins: 0
