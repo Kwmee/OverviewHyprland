@@ -1,0 +1,4 @@
+{
+    "ipc": true,
+    "ipcPath": "/tmp/hypr-overview.sock"
+}
